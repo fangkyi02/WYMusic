@@ -1,0 +1,30 @@
+{
+  "name": "WYMusic",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "react": "^16.0.0-alpha.6",
+    "react-native": "^0.43.0",
+    "react-native-orientation": "^1.17.0",
+    "react-native-splash-screen": "^2.0.0",
+    "react-native-svg": "^5.1.6",
+    "react-native-vector-icons": "^4.0.0",
+    "react-native-video-player": "^0.6.1",
+    "react-native-viewpager": "^0.2.13",
+    "react-navigation": "git+https://github.com/react-community/react-navigation.git",
+    "realm": "^1.2.0"
+  },
+  "devDependencies": {
+    "babel-jest": "19.0.0",
+    "babel-preset-react-native": "1.9.1",
+    "jest": "19.0.2",
+    "react-test-renderer": "~15.4.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
