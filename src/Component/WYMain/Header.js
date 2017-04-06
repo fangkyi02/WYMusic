@@ -60,7 +60,13 @@ export default class WYMain_Head extends PureComponent {
         }
         break;
       case 5:
-        this.props.navigation.navigate('Search');
+        if (this.props.onPress!='undefined') {
+          this.setState({id:5},()=>{
+            this.props.onPress(this.state.id);
+            // this.props.navigation.navigate('Search');
+          });
+        }
+
       default:
     }
   }
@@ -89,17 +95,17 @@ export default class WYMain_Head extends PureComponent {
           <View style={styles.bodyViewMain}>
             <View >
               <TouchableOpacity onPress={this._menuDown.bind(this,2)}>
-                <Body_Menu_1 name='ios-musical-notes-outline' size={30} color={this.state.id == 2?'white':'rgb(127,127,128)'}></Body_Menu_1>
+                <Text style={[this.state.id === 2?{color:'white'}:{color:'rgb(241,189,186)'},{fontSize:16}]}>我的</Text>
               </TouchableOpacity>
             </View>
             <View >
               <TouchableOpacity onPress={this._menuDown.bind(this,3)}>
-                <Body_Menu_2 name='user-secret' size={30} color={this.state.id == 3?'white':'rgb(127,127,128)'} ></Body_Menu_2>
+                <Text style={[this.state.id === 3?{color:'white'}:{color:'rgb(241,189,186)'},{fontSize:16}]}>发现</Text>
               </TouchableOpacity>
             </View>
             <View >
               <TouchableOpacity onPress={this._menuDown.bind(this,4)}>
-                <Body_Menu_3 name='user-o' size={30} color={this.state.id == 4?'white':'rgb(127,127,128)'}></Body_Menu_3>
+                <Text style={[this.state.id === 4?{color:'white'}:{color:'rgb(241,189,186)'},{fontSize:16}]}>动态</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -123,9 +129,9 @@ export default class WYMain_Head extends PureComponent {
 
 const styles = StyleSheet.create({
   container: {
-    height:30,
+    height:60,
     flexDirection:'row',
-    marginTop:20
+    backgroundColor:'rgb(205,50,43)'
   },
   leftMenu:{
     borderRadius:7,

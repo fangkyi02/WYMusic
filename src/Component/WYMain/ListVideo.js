@@ -47,14 +47,12 @@ export default class ListPlay extends Component {
   }
   render() {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container,this.props.style]}>
         <FlatList
           data ={this.state.data}
-          numColumns={1}
           renderItem ={this._renderItem.bind(this)}
-          getItemLayout ={this._getItemLayout.bind(this)}
-        />
-
+          getItemLayout ={this._getItemLayout.bind(this)}>
+        </FlatList>
       </View>
     );
   }

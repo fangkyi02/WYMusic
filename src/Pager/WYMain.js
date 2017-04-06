@@ -7,7 +7,10 @@ import {
   StyleSheet,
   Image,
   Button,
-  Alert
+  Alert,
+  Dimensions,
+  Animated,
+  TouchableOpacity
 } from 'react-native';
 
 import SplashScreen from 'react-native-splash-screen';
@@ -18,22 +21,119 @@ import LeftMenu from './LeftMenu';
 
 import { TabNavigator,DrawerNavigator} from 'react-navigation';
 import ListVideo from '../Component/WYMain/ListVideo';
+import FootPlay from '../Component/WYMain/FootPlay'
+import Search from '../Component/WYMain/Search';
+import PopMenu from '../Component/WYMain/PopMenu';
+
+
+
+const {width,height} = Dimensions.get('window');
+height = height - 120
 
 
 class WYMain extends React.PureComponent {
+
+  constructor(props){
+    super(props);
+    this.state ={
+      headerPos:new Animated.Value(0),
+      searchPos:new Animated.Value(width),
+      view1:true,
+      view2:false,
+    }
+  }
+
   componentWillMount() {
-    global.nav = this.props.navigation;
     Realm.InitRealm();
   }
 
-  _headerDown = (i) =>{
-    console.warn(i);
+  _onSearchDown = () =>{
+    this.refs.popmenu.Hide(200);
   }
+
+  _popMenuDown = () =>{
+    this.refs.popmenu.Show(200);
+  }
+
+  _onKeyboardHide = () =>{
+    this.refs.play.Hide();
+  }
+  _onKeyboardShow = () =>{
+    this.refs.play.Show();
+  }
+  _onSearchBackDown = () =>{
+    Animated.parallel([
+      Animated.timing(this.state.headerPos,{
+        toValue:0,
+        duration:10
+      }),
+      Animated.timing(this.state.searchPos,{
+        toValue:width,
+        duration:10
+      }),
+    ]).start(()=>{
+      this.setState({
+        view1:true,
+        view2:false,
+      })
+    });
+  }
+
+
+  _headerDown = (i) =>{
+
+    if (i ===5 ) {
+      Animated.parallel([
+        Animated.timing(this.state.headerPos,{
+          toValue:-width,
+          duration:10
+        }),
+        Animated.timing(this.state.searchPos,{
+          toValue:-width,
+          duration:10
+        }),
+      ]).start(()=>{
+        this.setState({
+          view1:false,
+          view2:true,
+        })
+      });
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Header onPress={(i) => {this._headerDown(i)}} navigation={this.props.navigation}/>
-        <ListVideo/>
+        <View style={{height:height+60,flexDirection:'row'}}>
+          {/* 主页部分 */}
+          <Animated.View style={{
+            transform:[{
+              translateX:this.state.headerPos
+            }],
+            backgroundColor:this.state.view1?'white':'rgba(0,0,0,0)',
+            width}}>
+            <Header onPress={(i) => {this._headerDown(i)}} navigation={this.props.navigation}/>
+            <ListVideo style={{height,backgroundColor:'rgb(240,240,240)'}}/>
+          </Animated.View>
+
+          {/* 搜索界面 */}
+          <Animated.View style={{
+            transform:[{
+              translateX:this.state.searchPos
+            }],
+            width,
+            backgroundColor:this.state.view2?'white':'rgba(0,0,0,0)',}}>
+            <Search style={{flex:1,height:height+60,width}}
+              onSearchDown={this._onSearchDown.bind(this)}
+              onSearchBackDown={this._onSearchBackDown.bind(this)}
+              onKeyboardHide={this._onKeyboardHide.bind(this)}
+              onKeyboardShow={this._onKeyboardHide.bind(this)}
+            />
+          </Animated.View>
+
+        </View>
+        <FootPlay ref='play' onPopMenu={this._popMenuDown.bind(this)}/>
+        <PopMenu ref='popmenu' style={{width}}/>
       </View>
     );
   }
@@ -45,14 +145,20 @@ export default WYMainNavigator = DrawerNavigator({
   }
 },
   {
-    drawerWidth:250,
+    drawerWidth:width*0.8,
     contentComponent:LeftMenu
   }
 );
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:'rgb(18,19,20)'
+    backgroundColor:'rgb(240,240,240)'
   },
+  popmenu:{
+    position:'absolute',
+    height:300,
+    backgroundColor:'white',
+  }
 });

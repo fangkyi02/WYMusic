@@ -31,6 +31,7 @@ export default SimpleApp = StackNavigator({
   headerMode:'none'
 })
 
+global.skinColor = 'rgb(205,50,43)';
 global.music={
 
 };

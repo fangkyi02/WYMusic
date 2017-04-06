@@ -5,22 +5,44 @@ import {
   View,
   Text,
   StyleSheet,
-  Animated
+  Animated,
+  Dimensions,
+  ScrollView,
+  Image,
+  TouchableOpacity
 } from 'react-native';
+
+
+const {width,height} = Dimensions.get('window');
+
+import Play from 'react-native-vector-icons/MaterialIcons';
+import FootMenu from 'react-native-vector-icons/Ionicons';
 
 export default class MyComponent extends Component {
 
+  constructor(props){
+    super(props);
+    this.state ={
+      playView:new Animated.Value(0),
+    };
+  }
   // 弹出菜单被按下
   _popMenuDown = () =>{
-    Animated.timing(this.state.popmenu,{
-      toValue:-300,
-      duration:200
-    }).start();
+    if (this.props.onPopMenu!='undefined') {
+      this.props.onPopMenu();
+    }
   }
 
-    // 播放按钮被按下
-    _PlayDowm = () =>{
+  _PlayDowm = () =>{
 
+  }
+    Show = () =>{
+      console.warn(1111);
+      this.state.playView.setValue(0);
+    }
+
+    Hide = () =>{
+      this.state.playView.setValue(600);
     }
 
   render() {
@@ -68,7 +90,7 @@ export default class MyComponent extends Component {
             <View style={{flexDirection:'row',width:100,height:60,justifyContent:'center',alignItems:'center'}}>
               <View>
                 <TouchableOpacity onPress={this._PlayDowm.bind(this)}>
-                  <Play name='play-circle-outline' size={40} color='white'></Play>
+                  <Play name='play-circle-outline' size={40} color='black'></Play>
                 </TouchableOpacity>
               </View>
               <View style={{width:30,marginLeft:15}}>
@@ -80,17 +102,7 @@ export default class MyComponent extends Component {
           </View>
         </Animated.View>
 
-        {/* 弹出菜单 */}
-        <Animated.View  style={[
-          styles.popmenu,
-          {bottom:-300,width,
-          transform:[{
-          translateY:this.state.popmenu}]
-        }]}>
-          <Text style={{color:'white'}}>
-            asdas
-          </Text>
-        </Animated.View>
+
       </View>
     );
   }
@@ -98,19 +110,13 @@ export default class MyComponent extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    position:'absolute',
+    bottom:0,
   },
   footPlay:{
-    // position:'absolute',
-    // bottom:0,
     width,
     height:60,
-    backgroundColor:'rgb(22,23,25)',
+    backgroundColor:'white',
     flexDirection:'row'
-  },
-  popmenu:{
-    position:'absolute',
-    height:300,
-    backgroundColor:'rgb(22,23,25)',
   }
 });
