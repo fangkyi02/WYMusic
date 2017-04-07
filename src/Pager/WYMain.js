@@ -10,25 +10,86 @@ import {
   Alert,
   Dimensions,
   Animated,
-  TouchableOpacity
+  TouchableOpacity,
+  InteractionManager
 } from 'react-native';
 
 import SplashScreen from 'react-native-splash-screen';
 import Header from '../Component/WYMain/Header';
 import Realm from './InitRealm';
 import LeftMenu from './LeftMenu';
-
-
-import { TabNavigator,DrawerNavigator} from 'react-navigation';
 import ListVideo from '../Component/WYMain/ListVideo';
 import FootPlay from '../Component/WYMain/FootPlay'
 import Search from '../Component/WYMain/Search';
 import PopMenu from '../Component/WYMain/PopMenu';
+import ModalView from '../Component/WYMain/ModalView';
+
+
+import { TabNavigator,DrawerNavigator} from 'react-navigation';
+
 
 
 
 const {width,height} = Dimensions.get('window');
 height = height - 120
+
+
+
+
+
+
+
+class MyHomeScreen extends React.Component {
+  static navigationOptions = {
+
+  }
+
+  render() {
+    return (
+      <Button
+        onPress={() => this.props.navigation.navigate('Notifications')}
+        title="Go to notifications"
+      />
+    );
+  }
+}
+
+class MyNotificationsScreen extends React.Component {
+  static navigationOptions = {
+    header:{
+      visable:false
+    }
+  }
+
+  render() {
+    return (
+      <Button
+        onPress={() => this.props.navigation.goBack()}
+        title="Go back home"
+      />
+    );
+  }
+}
+
+
+
+
+const MyApp = TabNavigator({
+  Home: {
+    screen: MyHomeScreen,
+  },
+  Notifications: {
+    screen: MyNotificationsScreen,
+  },
+}, {
+  tabBarPosition:'bottom',
+  // swipeEnabled:false,
+  // lazyLoad:true,
+  // animationEnabled:true,
+  tabBarOptions: {
+    showLabel:false,
+  },
+});
 
 
 class WYMain extends React.PureComponent {
@@ -40,19 +101,29 @@ class WYMain extends React.PureComponent {
       searchPos:new Animated.Value(width),
       view1:true,
       view2:false,
+    };
+    this.data = {
+      serachView : ''
     }
   }
 
   componentWillMount() {
+    // console.warn(global.init);
+    global.init = true;
+    SplashScreen.hide();
     Realm.InitRealm();
+
+    InteractionManager.runAfterInteractions(()=>{
+      this.data.searchView = <Search/>;
+    })
   }
 
   _onSearchDown = () =>{
-    this.refs.popmenu.Hide(200);
+    this.refs.popmenu.hide(200);
   }
 
   _popMenuDown = () =>{
-    this.refs.popmenu.Show(200);
+    this.refs.popmenu.show(200);
   }
 
   _onKeyboardHide = () =>{
@@ -61,6 +132,7 @@ class WYMain extends React.PureComponent {
   _onKeyboardShow = () =>{
     this.refs.play.Show();
   }
+
   _onSearchBackDown = () =>{
     Animated.parallel([
       Animated.timing(this.state.headerPos,{
@@ -79,9 +151,11 @@ class WYMain extends React.PureComponent {
     });
   }
 
-
   _headerDown = (i) =>{
-
+    if (i===2) {
+      // console.log(this.refs.myapp.navigate('Notifications'));
+      this.refs.myapp.props.navigation.navigate('Notifications');
+    }
     if (i ===5 ) {
       Animated.parallel([
         Animated.timing(this.state.headerPos,{
@@ -113,26 +187,29 @@ class WYMain extends React.PureComponent {
             backgroundColor:this.state.view1?'white':'rgba(0,0,0,0)',
             width}}>
             <Header onPress={(i) => {this._headerDown(i)}} navigation={this.props.navigation}/>
-            <ListVideo style={{height,backgroundColor:'rgb(240,240,240)'}}/>
+            <MyApp ref='myapp'/>
+            {/* <ListVideo style={{height,backgroundColor:'rgb(240,240,240)'}}/> */}
           </Animated.View>
 
           {/* 搜索界面 */}
           <Animated.View style={{
+            overflow:'hidden',
             transform:[{
               translateX:this.state.searchPos
             }],
             width,
             backgroundColor:this.state.view2?'white':'rgba(0,0,0,0)',}}>
-            <Search style={{flex:1,height:height+60,width}}
+            <Search style={{flex:1,height:height+60,width,overflow:'hidden',}}
               onSearchDown={this._onSearchDown.bind(this)}
               onSearchBackDown={this._onSearchBackDown.bind(this)}
               onKeyboardHide={this._onKeyboardHide.bind(this)}
-              onKeyboardShow={this._onKeyboardHide.bind(this)}
+              onKeyboardShow={this._onKeyboardShow.bind(this)}
             />
           </Animated.View>
 
         </View>
         <FootPlay ref='play' onPopMenu={this._popMenuDown.bind(this)}/>
+        {/* <ModalView ref='modalview'/> */}
         <PopMenu ref='popmenu' style={{width}}/>
       </View>
     );
@@ -146,7 +223,16 @@ export default WYMainNavigator = DrawerNavigator({
 },
   {
     drawerWidth:width*0.8,
-    contentComponent:LeftMenu
+    contentComponent:LeftMenu,
+    contentOptions:{
+      style:{
+        backgroundColor:'red'
+      },
+      labelStyle:{
+        backgroundColor:'red',
+        color:'red'
+      }
+    }
   }
 );
 

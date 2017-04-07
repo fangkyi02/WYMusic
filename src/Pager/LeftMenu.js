@@ -5,15 +5,70 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  Dimensions,
+  Alert
 } from 'react-native';
+
+const {width,height} = Dimensions.get('window');
+import Icon from 'react-native-vector-icons/Entypo';
 
 export default class LeftMenu extends Component {
 
+  constructor(props){
+    super(props);
+    this.data ={
+
+      menuNameList:[
+        '我的消息',
+        '会员中心',
+        '商城',
+        '在线听歌免流量',
+        '我的好友',
+        '附近的人',
+        '个性换肤',
+        '听歌识曲',
+        '定时停止播放',
+        '音乐闹钟'],
+
+      iconList:[
+        {name:'mail'},
+        {name:'browser'},
+        {name:'cake'},
+        {name:'bowl'},
+        {name:'colours'},
+        {name:'dropbox'},
+        {name:'github'},
+        {name:'location'},
+        {name:'leaf'},
+        {name:'mic'}
+      ]
+    }
+  }
   _loginDown = () => {
-    console.warn(1);
+    alert('登录按钮被按下');
   }
 
+  _buttonDown = (i) =>{
+    alert(`按钮${i}被按下`);
+  }
+  _initRenderBody = () =>{
+    return this.data.menuNameList.map((el,i)=>{
+      var icon = this.data.iconList[i].name;
+      return (
+        <View key={i} style={styles.drawBodyView}>
+            <TouchableOpacity style={{flexDirection:'row'}} onPress={this._buttonDown.bind(this,i)}>
+              <View style={{marginLeft:10}}>
+                <Icon name = {icon} size ={20} />
+              </View>
+              <View style={{marginLeft:10}}>
+                <Text style={{fontSize:16,color:'rgb(37,36,37)'}}>{el}</Text>
+              </View>
+            </TouchableOpacity>
+        </View>
+      );
+    })
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -40,13 +95,51 @@ export default class LeftMenu extends Component {
           </View>
         </View>
 
-        {/* 抽屉菜单主体内容 */}
-        <View styel={styles.drawBody}>
-
+        {/* 菜单主体部分 */}
+        <View style={styles.drawBody}>
+          {this._initRenderBody()}
         </View>
 
-        {/* 尾部控制按钮 */}
+        {/* 菜单尾部部分 */}
         <View style={styles.drawFoot}>
+          <View style={{flexDirection:'row',justifyContent:'space-around'}}>
+
+            {/* 夜间模式 */}
+              <TouchableOpacity style={{flexDirection:'row'}} onPress={this._buttonDown.bind(this,10)}>
+                <View>
+                  <Icon name='feather' size={20}/>
+                </View>
+                <View>
+                  <Text style={{fontSize:18,color:'rgb(37,36,37)'}}>
+                    夜间模式
+                  </Text>
+                </View>
+              </TouchableOpacity>
+
+            {/* 设置 */}
+              <TouchableOpacity style={{flexDirection:'row'}} onPress={this._buttonDown.bind(this,11)}>
+                <View>
+                  <Icon name='feather' size={20}/>
+                </View>
+                <View>
+                  <Text style={{fontSize:18,color:'rgb(37,36,37)'}}>
+                    设置
+                  </Text>
+                </View>
+              </TouchableOpacity>
+
+            {/* 退出 */}
+              <TouchableOpacity style={{flexDirection:'row'}} onPress={this._buttonDown.bind(this,12)}>
+                <View>
+                  <Icon name='feather' size={20}/>
+                </View>
+                <View>
+                  <Text style={{fontSize:18,color:'rgb(37,36,37)'}}>
+                    退出
+                  </Text>
+                </View>
+              </TouchableOpacity>
+          </View>
         </View>
       </View>
     );
@@ -58,7 +151,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   drawBKColor:{
-    height:220,
+    height:160,
     backgroundColor:'rgb(38,39,42)',
   },
   drawBKTextColor:{
@@ -66,7 +159,7 @@ const styles = StyleSheet.create({
     fontSize:15
   },
   drawLogin:{
-    marginTop:15,
+    marginTop:25,
     width:150,
     height:35,
     borderWidth:0.6,
@@ -76,9 +169,19 @@ const styles = StyleSheet.create({
     alignItems:'center'
   },
   drawBody:{
+    // backgroundColor:'rgb(242,242,243)',
+    height:height-160-60,
+    width:width*0.85,
+    justifyContent:'space-around'
+  },
+  drawBodyView:{
+    marginTop:10,
+    alignItems:'flex-start',
 
   },
   drawFoot:{
-
+    flex:1,
+    justifyContent:'center',
+    alignContent:'space-around'
   }
 });

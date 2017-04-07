@@ -41,30 +41,27 @@ export default class WYMain_Head extends PureComponent {
       case 2:
         if (this.props.onPress!='undefined') {
           this.setState({id:2},()=>{
-            this.props.onPress(this.state.id);
+            this.props.onPress(i);
           });
         }
         break;
       case 3:
         if (this.props.onPress!='undefined') {
           this.setState({id:3},()=>{
-            this.props.onPress(this.state.id);
+            this.props.onPress(i);
           });
         }
         break;
       case 4:
         if (this.props.onPress!='undefined') {
           this.setState({id:4},()=>{
-            this.props.onPress(this.state.id);
+            this.props.onPress(i);
           });
         }
         break;
       case 5:
         if (this.props.onPress!='undefined') {
-          this.setState({id:5},()=>{
-            this.props.onPress(this.state.id);
-            // this.props.navigation.navigate('Search');
-          });
+            this.props.onPress(i);
         }
 
       default:

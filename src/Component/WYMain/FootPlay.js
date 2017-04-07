@@ -37,7 +37,6 @@ export default class MyComponent extends Component {
 
   }
     Show = () =>{
-      console.warn(1111);
       this.state.playView.setValue(0);
     }
 

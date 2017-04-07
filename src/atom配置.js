@@ -2,6 +2,10 @@ navigator.getCurrentRoutes();
 Dimensions,
 duration,
 shouldComponentUpdate
+InteractionManager
+requestAnimationFrame():执行控制动画效果的代码
+setImmediate/setTimeout():设置延迟执行任务的时间，该可能会影响到正在执行的动画
+runAfterInteractions():延迟执行任务，该不会影响到正在执行的动画效果
 spring: 基础的单次弹跳物理模型，符合Origami设计标准
 friction: 摩擦力，默认为7.
 tension: 张力，默认40。

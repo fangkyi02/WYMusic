@@ -18,23 +18,20 @@ import Search from './Component/WYMain/Search'
 import SplashScreen from 'react-native-splash-screen'
 import {StackNavigator} from 'react-navigation';
 
-AppState.addEventListener('change', (nextAppState)=>{
-  if (nextAppState === 'active') {
-    SplashScreen.hide();
-  }
-});
+// AppState.addEventListener('change', (nextAppState)=>{
+//   if (nextAppState === 'active' && global.init != 'undefined' ) {
+//     SplashScreen.hide();
+//   }
+// });
 
 export default SimpleApp = StackNavigator({
   Home:{screen:WYMain},
-  Search:{screen:Search},
 },{
   headerMode:'none'
 })
 
 global.skinColor = 'rgb(205,50,43)';
-global.music={
 
-};
 // global.skinColor = 'red';
 
 AppRegistry.registerComponent('WYMusic', () => SimpleApp);
