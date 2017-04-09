@@ -23,6 +23,7 @@ import FootPlay from '../Component/WYMain/FootPlay'
 import Search from '../Component/WYMain/Search';
 import PopMenu from '../Component/WYMain/PopMenu';
 import ModalView from '../Component/WYMain/ModalView';
+import TabView from '../Component/TabView';
 
 
 import { TabNavigator,DrawerNavigator} from 'react-navigation';
@@ -39,57 +40,9 @@ height = height - 120
 
 
 
-class MyHomeScreen extends React.Component {
-  static navigationOptions = {
-
-  }
-
-  render() {
-    return (
-      <Button
-        onPress={() => this.props.navigation.navigate('Notifications')}
-        title="Go to notifications"
-      />
-    );
-  }
-}
-
-class MyNotificationsScreen extends React.Component {
-  static navigationOptions = {
-    header:{
-      visable:false
-    }
-  }
-
-  render() {
-    return (
-      <Button
-        onPress={() => this.props.navigation.goBack()}
-        title="Go back home"
-      />
-    );
-  }
-}
 
 
 
-
-const MyApp = TabNavigator({
-  Home: {
-    screen: MyHomeScreen,
-  },
-  Notifications: {
-    screen: MyNotificationsScreen,
-  },
-}, {
-  tabBarPosition:'bottom',
-  // swipeEnabled:false,
-  // lazyLoad:true,
-  // animationEnabled:true,
-  tabBarOptions: {
-    showLabel:false,
-  },
-});
 
 
 class WYMain extends React.PureComponent {
@@ -152,27 +105,39 @@ class WYMain extends React.PureComponent {
   }
 
   _headerDown = (i) =>{
-    if (i===2) {
-      // console.log(this.refs.myapp.navigate('Notifications'));
-      this.refs.myapp.props.navigation.navigate('Notifications');
+    switch (i) {
+      case 1:
+        this.props.navigation.navigate('DrawerOpen');
+        break;
+      case 2:
+        this.refs.TabView._navigation.navigate('My');
+        break;
+      case 3:
+        this.refs.TabView._navigation.navigate('Find');
+        break;
+      case 4:
+        this.refs.TabView._navigation.navigate('Dynamic');
+        break;
+      case 5:
+        Animated.parallel([
+          Animated.timing(this.state.headerPos,{
+            toValue:-width,
+            duration:10
+          }),
+          Animated.timing(this.state.searchPos,{
+            toValue:-width,
+            duration:10
+          }),
+        ]).start(()=>{
+          this.setState({
+            view1:false,
+            view2:true,
+          })
+        });
+        break;
+      default:
     }
-    if (i ===5 ) {
-      Animated.parallel([
-        Animated.timing(this.state.headerPos,{
-          toValue:-width,
-          duration:10
-        }),
-        Animated.timing(this.state.searchPos,{
-          toValue:-width,
-          duration:10
-        }),
-      ]).start(()=>{
-        this.setState({
-          view1:false,
-          view2:true,
-        })
-      });
-    }
+
   }
 
   render() {
@@ -187,8 +152,8 @@ class WYMain extends React.PureComponent {
             backgroundColor:this.state.view1?'white':'rgba(0,0,0,0)',
             width}}>
             <Header onPress={(i) => {this._headerDown(i)}} navigation={this.props.navigation}/>
-            <MyApp ref='myapp'/>
-            {/* <ListVideo style={{height,backgroundColor:'rgb(240,240,240)'}}/> */}
+            <TabView ref='TabView'/>
+
           </Animated.View>
 
           {/* 搜索界面 */}
@@ -209,7 +174,6 @@ class WYMain extends React.PureComponent {
 
         </View>
         <FootPlay ref='play' onPopMenu={this._popMenuDown.bind(this)}/>
-        {/* <ModalView ref='modalview'/> */}
         <PopMenu ref='popmenu' style={{width}}/>
       </View>
     );

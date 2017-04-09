@@ -228,7 +228,6 @@ export default class Search extends PureComponent {
         </View>
 
         {/* 歌曲搜索 */}
-        <TouchableOpacity onPress={this._searchTouchDown.bind(this)}>
           <View style={styles.serachView} >
             <View style={{marginTop:25,marginLeft:5}}>
               <Text style={{fontSize:17,color:'rgb(127,127,128)'}}>
@@ -239,7 +238,7 @@ export default class Search extends PureComponent {
               {this._initList()}
             </View>
           </View>
-        </TouchableOpacity>
+
 
 
         {/* 搜索记录 */}

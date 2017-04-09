@@ -36,7 +36,11 @@ export default class WYMain_Head extends PureComponent {
   _menuDown = (i) =>{
     switch (i) {
       case 1:
-      this.props.navigation.navigate('DrawerOpen');
+      if (this.props.onPress!='undefined') {
+        this.setState({id:1},()=>{
+          this.props.onPress(i);
+        });
+      }
         break;
       case 2:
         if (this.props.onPress!='undefined') {
