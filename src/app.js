@@ -14,19 +14,23 @@ import {
 
 import WYMain from './Pager/WYMain'
 import Search from './Component/WYMain/Search'
+import PlayView from './Pager/PlayView';
 
 import SplashScreen from 'react-native-splash-screen'
 import {StackNavigator} from 'react-navigation';
 
-// AppState.addEventListener('change', (nextAppState)=>{
-//   if (nextAppState === 'active' && global.init != 'undefined' ) {
-//     SplashScreen.hide();
-//   }
-// });
+AppState.addEventListener('change', (nextAppState)=>{
+  if (nextAppState === 'active'){
+    if (global.init === true){
+      SplashScreen.hide();
+    }}
+});
 
 export default SimpleApp = StackNavigator({
-  Home:{screen:WYMain},
-},{
+  '主页面':{screen:WYMain},
+  '播放器页面':{screen:PlayView},
+  },{
+  initialRouteName:'主页面',
   headerMode:'none'
 })
 

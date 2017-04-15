@@ -9,7 +9,7 @@ import {
 
 import ListVideo from '../WYMain/ListVideo';
 
-export default class Dynamic extends Component {
+export default class DynamicView extends Component {
   render() {
     return (
       <View style={styles.container}>

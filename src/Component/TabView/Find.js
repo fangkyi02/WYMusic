@@ -7,22 +7,13 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import Video from 'react-native-video';
+import FindTabView from './FindView';
 
-export default class Find extends Component {
-
-  load = () =>{
-    console.warn(1);
-  }
-  loadStart = () =>{
-    console.warn(12);
-  }
+export default class FindView extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>
-          首页
-        </Text>
+        <FindTabView/>
       </View>
     );
   }
@@ -32,8 +23,4 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  backgroundVideo:{
-    height:150,
-    width:200
-  }
 });

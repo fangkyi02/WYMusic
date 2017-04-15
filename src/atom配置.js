@@ -20,6 +20,7 @@ parallel（同时执行）、sequence（顺序执行）、stagger和delay
 inputRange: [0,1],
 outputRange: ['0deg', '360deg']
 interpolate
+pagingEnabled
 measure,
 chilren,
 forceUpdate,

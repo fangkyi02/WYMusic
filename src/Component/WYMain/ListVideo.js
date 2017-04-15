@@ -10,7 +10,6 @@ import {
   Dimensions
 } from 'react-native';
 
-import {GetData} from './GetData';
 
 
 const {width,height} = Dimensions.get('window');
@@ -28,7 +27,6 @@ export default class ListPlay extends Component {
         {title:'美女6',img:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1491412207457&di=d6f9f73b84047db49d108aa97a470d87&imgtype=0&src=http%3A%2F%2Fimg4q.duitang.com%2Fuploads%2Fitem%2F201409%2F30%2F20140930233607_mXYik.jpeg'},
         {title:'美女7',img:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1491412207456&di=afb9b49dce578dc4fb524b1b86c50801&imgtype=0&src=http%3A%2F%2Fimg4.duitang.com%2Fuploads%2Fitem%2F201512%2F14%2F20151214115215_EwKfu.thumb.700_0.jpeg'},
       ]
-      // data : new Array(100).fill({t:''}),
     };
   }
 

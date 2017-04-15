@@ -29,21 +29,8 @@ import TabView from '../Component/TabView';
 import { TabNavigator,DrawerNavigator} from 'react-navigation';
 
 
-
-
 const {width,height} = Dimensions.get('window');
 height = height - 120
-
-
-
-
-
-
-
-
-
-
-
 
 class WYMain extends React.PureComponent {
 
@@ -54,38 +41,61 @@ class WYMain extends React.PureComponent {
       searchPos:new Animated.Value(width),
       view1:true,
       view2:false,
+      songData:[]
     };
     this.data = {
-      serachView : ''
-    }
+      serachView : '',
+    };
+
+    this.getSongData();
   }
 
   componentWillMount() {
     // console.warn(global.init);
-    global.init = true;
-    SplashScreen.hide();
     Realm.InitRealm();
 
-    InteractionManager.runAfterInteractions(()=>{
-      this.data.searchView = <Search/>;
-    })
+    setTimeout(()=>{
+        global.init = true;
+        SplashScreen.hide();
+    },200);
   }
 
+  getSongData = async() =>{
+    console.warn('歌曲输出');
+    await fetch('http://t.cn/RXqrM6p')
+    .then((re)=>re.json())
+    .then((r)=>{
+      if (r.statusCode == 200) {
+        this.setState({songData:r.song_list},()=>{
+          setTimeout(()=>{
+            SplashScreen.hide();
+          },200);
+        });
+
+      }
+    })
+  }
+  // 搜索按钮被按下
   _onSearchDown = () =>{
     this.refs.popmenu.hide(200);
   }
 
+  // 弹出菜单被按下
   _popMenuDown = () =>{
     this.refs.popmenu.show(200);
   }
 
+  // 键盘监听-键盘隐藏
   _onKeyboardHide = () =>{
     this.refs.play.Hide();
   }
+
+  // 键盘监听-键盘显示
   _onKeyboardShow = () =>{
     this.refs.play.Show();
   }
 
+  // 搜索返回被按下
   _onSearchBackDown = () =>{
     Animated.parallel([
       Animated.timing(this.state.headerPos,{
@@ -104,6 +114,7 @@ class WYMain extends React.PureComponent {
     });
   }
 
+  // 头部按钮被按下
   _headerDown = (i) =>{
     switch (i) {
       case 1:
@@ -139,6 +150,11 @@ class WYMain extends React.PureComponent {
     }
 
   }
+  // 播放器按钮被按下
+  _onPlayDown = (i) =>{
+    console.warn(i);
+    this.props.navigation.navigate('播放器页面',{songData:i});
+  }
 
   render() {
     return (
@@ -173,7 +189,12 @@ class WYMain extends React.PureComponent {
           </Animated.View>
 
         </View>
-        <FootPlay ref='play' onPopMenu={this._popMenuDown.bind(this)}/>
+        <FootPlay
+          ref='play'
+          data={this.state.songData}
+          onPopMenu={this._popMenuDown.bind(this)}
+          onPlayDown={this._onPlayDown.bind(this)}
+        />
         <PopMenu ref='popmenu' style={{width}}/>
       </View>
     );

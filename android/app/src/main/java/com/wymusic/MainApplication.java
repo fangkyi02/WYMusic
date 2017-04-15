@@ -6,7 +6,6 @@ import com.facebook.react.ReactApplication;
 import com.brentvatne.react.ReactVideoPackage;
 import io.realm.react.RealmReactPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
-import com.horcrux.svg.SvgPackage;
 import com.cboy.rn.splashscreen.SplashScreenReactPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -31,7 +30,6 @@ public class MainApplication extends Application implements ReactApplication {
             new ReactVideoPackage(),
             new RealmReactPackage(),
             new VectorIconsPackage(),
-            new SvgPackage(),
             new SplashScreenReactPackage()
       );
     }

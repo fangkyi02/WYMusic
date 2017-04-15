@@ -7,16 +7,11 @@
     "test": "jest"
   },
   "dependencies": {
-    "mobx": "^3.1.9",
     "react": "^16.0.0-alpha.6",
-    "react-native": "^0.43.0",
-    "react-native-orientation": "^1.17.0",
+    "react-native": "^0.43.3",
     "react-native-splash-screen": "^2.0.0",
-    "react-native-svg": "^5.1.6",
     "react-native-vector-icons": "^4.0.0",
     "react-native-video": "^1.0.0",
-    "react-native-video-player": "^0.6.1",
-    "react-native-viewpager": "^0.2.13",
     "react-navigation": "git+https://github.com/react-community/react-navigation.git",
     "realm": "^1.2.0"
   },

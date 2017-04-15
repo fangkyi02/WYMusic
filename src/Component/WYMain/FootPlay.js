@@ -18,31 +18,81 @@ const {width,height} = Dimensions.get('window');
 import Play from 'react-native-vector-icons/MaterialIcons';
 import FootMenu from 'react-native-vector-icons/Ionicons';
 
-export default class MyComponent extends Component {
+export default class FootPlay extends Component {
 
   constructor(props){
     super(props);
     this.state ={
+      data:[],
       playView:new Animated.Value(0),
+    };
+    this.data = {
+      scrItemPos:0,
+      scrItemOffset:0,
     };
   }
   // 弹出菜单被按下
-  _popMenuDown = () =>{
-    if (this.props.onPopMenu!='undefined') {
-      this.props.onPopMenu();
+    _popMenuDown = () =>{
+      if (this.props.onPopMenu!='undefined') {
+        this.props.onPopMenu();
+      }
     }
-  }
-
-  _PlayDowm = () =>{
-
-  }
+    // 播放按钮被按下
+    _PlayDowm = () =>{
+      if (this.props.onPlayDown!='undefined') {
+        this.props.onPlayDown(this.data.scrItemPos);
+      }
+    }
+    // 键盘弹出显示
     Show = () =>{
       this.state.playView.setValue(0);
     }
-
+    // 键盘弹出隐藏
     Hide = () =>{
       this.state.playView.setValue(600);
     }
+
+    // 滚动条元素被按下
+    _scrollItemDwon = (i) =>{
+      if (this.props.onPlayDown!='undefined') {
+        this.props.onPlayDown(i);
+      }
+    }
+
+    // 初始化ScrollView内容
+    _initReder = () =>{
+      console.log(this.props.data);
+      return this.props.data.map((el,i)=>{
+        return (
+          <TouchableOpacity style={styles.scrItemView} onPress={this._scrollItemDwon.bind(this,i)}>
+            <View style={styles.scrItemImage}>
+              <Image source={{uri:el.pic_big}} style={{width:35,height:35}}></Image>
+            </View>
+            <View style={styles.scrItemText} activeOpacity={1}>
+              <Text style={styles.scrItemTextStyle}>
+                {el.title}
+              </Text>
+              <Text style={{color:'rgb(73,74,75)'}}>
+                {el.author}
+              </Text>
+            </View>
+          </TouchableOpacity>
+        );
+      })
+    }
+
+  // 判断滚动条滚动位置
+  _onMomentumScrollEnd = (e) =>{
+
+    let contentSize,contentOffset,layoutMeasurement;
+
+    contentSize = e.nativeEvent.contentSize.width;
+    contentOffset = e.nativeEvent.contentOffset.x;
+    layoutMeasurement = e.nativeEvent.layoutMeasurement.width;
+
+    this.data.scrItemPos = Math.round(contentOffset/contentSize*this.props.data.length);
+
+  }
 
   render() {
     return (
@@ -53,35 +103,14 @@ export default class MyComponent extends Component {
           }]
         }]}>
 
-          <ScrollView horizontal={true} style={{width:width-200,}}>
-            <View style={{width:width-100,flexDirection:'row'}}>
-              <View style={{width:50,justifyContent:"center",alignItems:'center'}}>
-                <Image source={require('../assets/icon.png')} style={{width:35,height:35}}></Image>
-              </View>
-              <View style={{marginLeft:5,justifyContent:"center"}}>
-                <Text style={{fontSize:16,color:'rgb(149,150,150)'}}>
-                  成都
-                </Text>
-                <Text style={{color:'rgb(73,74,75)'}}>
-                  横划可以切换歌曲哦
-                </Text>
-              </View>
-            </View>
-
-            <View style={{width:width-100,flexDirection:'row'}}>
-              <View style={{width:50,justifyContent:"center",alignItems:'center'}}>
-                <Image source={require('../assets/qudali.jpg')} style={{width:35,height:35}}></Image>
-              </View>
-              <View style={{marginLeft:5,justifyContent:"center"}}>
-                <Text style={{fontSize:16,color:'rgb(149,150,150)'}}>
-                  去大理
-                </Text>
-                <Text style={{color:'rgb(73,74,75)'}}>
-                  横划可以切换歌曲哦
-                </Text>
-              </View>
-            </View>
-
+          <ScrollView
+            pagingEnabled={true}
+            horizontal={true}
+            style={{width:width-200,}}
+            showsHorizontalScrollIndicator={false}
+            onMomentumScrollEnd={this._onMomentumScrollEnd.bind(this)}
+            >
+            {this._initReder()}
           </ScrollView>
 
           {/* 播放按钮跟菜单按钮 */}
@@ -117,5 +146,22 @@ const styles = StyleSheet.create({
     height:60,
     backgroundColor:'white',
     flexDirection:'row'
+  },
+  scrItemView:{
+    width:width-100,
+    flexDirection:'row',
+  },
+  scrItemImage:{
+    width:50,
+    justifyContent:"center",
+    alignItems:'center'
+  },
+  scrItemText:{
+    marginLeft:5,
+    justifyContent:"center",
+  },
+  scrItemTextStyle:{
+    fontSize:16,
+    color:'rgb(149,150,150)'
   }
 });

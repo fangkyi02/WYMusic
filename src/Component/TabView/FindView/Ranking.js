@@ -7,11 +7,18 @@ import {
   StyleSheet,
 } from 'react-native';
 
-export default class TabView extends Component {
+export default class Ranking extends Component {
+
+  static navigationOptions = {
+      tabBar: {
+        label: '排行榜',
+      },
+    }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text>I'm the MyComponent component</Text>
+        <Text>I'm the Ranking</Text>
       </View>
     );
   }
@@ -19,6 +26,11 @@ export default class TabView extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex:1,
+    position:'absolute',
+    left:0,
+    top:0,
+    right:0,
+    bottom:0,
   },
 });

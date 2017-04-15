@@ -24,7 +24,7 @@ const {width}  = Dimensions.get('window');
 const scale = PixelRatio.get();
 scale = scale>2?scale-2:1;
 
-export default class My extends Component {
+export default class MyView extends Component {
 
   constructor(props){
     super(props);
@@ -58,9 +58,9 @@ export default class My extends Component {
     })
   }
   render() {
-    console.warn(scale);
+
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <View style={styles.list}>
          {this._initListRender()}
         </View>
@@ -139,64 +139,9 @@ export default class My extends Component {
               </View>
             </View>
           </View>
-          {/* <View style={{justifyContent:'flex-end'}}>
-            <View style={{flex:1,flexDirection:'row'}}>
-              <View style={{flex:1,alignContent:'space-around'}}>
-                <View style={{justifyContent:'flex-start',width:120,height:100}}>
-                  <Image
-                    style={{width:120,height:100}}
-                    source={{uri:'http://dwz.cn/5Ipo8y'}}></Image>
-                </View>
-                <View style={{height:30,alignItems:'center',justifyContent:"center"}}>
-                  <Text style={{fontSize:15,color:'rgb(126,127,128)'}}>
-                    美女
-                  </Text>
-                </View>
-              </View>
-
-              <View style={{flex:1,}}>
-                <View style={{justifyContent:'flex-start',width:120,height:100}}>
-                  <Image
-                    style={{width:120,height:100}}
-                    source={{uri:'http://dwz.cn/5Ipo8y'}}></Image>
-                </View>
-                <View style={{height:30,alignItems:'center',justifyContent:"center"}}>
-                  <Text style={{fontSize:15,color:'rgb(126,127,128)'}}>
-                    美女
-                  </Text>
-                </View>
-              </View>
-
-              <View style={{flex:1,}}>
-                <View style={{justifyContent:'flex-start',width:120,height:100}}>
-                  <Image
-                    style={{width:120,height:100}}
-                    source={{uri:'http://dwz.cn/5Ipo8y'}}></Image>
-                </View>
-                <View style={{height:30,alignItems:'center',justifyContent:"center"}}>
-                  <Text style={{fontSize:15,color:'rgb(126,127,128)'}}>
-                    美女
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </View> */}
-
-          {/* <View style={{height:80,width:120}}>
-            <View style={{justifyContent:'flex-start'}}>
-              <Image
-                style={{width:120,height:100}}
-                source={{uri:'http://dwz.cn/5Ipo8y'}}></Image>
-            </View>
-            <View style={{height:30,alignItems:'center',justifyContent:"center"}}>
-              <Text style={{fontSize:15,color:'rgb(126,127,128)'}}>
-                美女
-              </Text>
-            </View>
-          </View> */}
-
           </View>
-        </View>
+
+        </ScrollView>
     );
   }
 }

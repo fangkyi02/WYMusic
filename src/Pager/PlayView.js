@@ -7,11 +7,14 @@ import {
   StyleSheet,
 } from 'react-native';
 
-export default class TabView extends Component {
+export default class PlayView extends Component {
+  constructor(props){
+    super(props);
+  }
   render() {
     return (
       <View style={styles.container}>
-        <Text>I'm the MyComponent component</Text>
+        <Text>播放器页面</Text>
       </View>
     );
   }
