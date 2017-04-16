@@ -1,5 +1,7 @@
 navigator.getCurrentRoutes();
 Dimensions,
+interpolate
+Interpolation
 duration,
 shouldComponentUpdate
 InteractionManager

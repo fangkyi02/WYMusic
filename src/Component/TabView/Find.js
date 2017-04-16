@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Text,
@@ -9,7 +9,7 @@ import {
 
 import FindTabView from './FindView';
 
-export default class FindView extends Component {
+export default class FindView extends PureComponent {
   render() {
     return (
       <View style={styles.container}>

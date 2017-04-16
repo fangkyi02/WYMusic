@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Text,
@@ -24,7 +24,7 @@ const {width}  = Dimensions.get('window');
 const scale = PixelRatio.get();
 scale = scale>2?scale-2:1;
 
-export default class MyView extends Component {
+export default class MyView extends PureComponent {
 
   constructor(props){
     super(props);

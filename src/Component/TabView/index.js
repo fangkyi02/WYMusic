@@ -8,7 +8,7 @@ import DynamicView from './Dynamic';
 
 
 
-export default TabView = TabNavigator({
+export default TabNavigatorView = TabNavigator({
   My: {
     screen: MyView,
   },
@@ -19,11 +19,13 @@ export default TabView = TabNavigator({
     screen: DynamicView,
   }},
   {
+
   initialRouteName:'Find',
   tabBarPosition:'bottom',
   // lazyLoad:true,
   animationEnabled:true,
   tabBarOptions: {
+    a:'abs',
     showLabel:false,
     scrollEnabled:false,
   },

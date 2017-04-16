@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Text,
@@ -14,7 +14,7 @@ import {
 
 const {width,height} = Dimensions.get('window');
 
-export default class PopMenu extends Component {
+export default class PopMenu extends PureComponent {
 
   constructor(props){
     super(props);

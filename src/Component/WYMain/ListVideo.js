@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Text,
@@ -14,7 +14,7 @@ import {
 
 const {width,height} = Dimensions.get('window');
 
-export default class ListPlay extends Component {
+export default class ListPlay extends PureComponent {
   constructor(props){
     super(props);
     this.state = {
@@ -45,7 +45,6 @@ export default class ListPlay extends Component {
           {item.title}
         </Text>
       </View>
-
     </Image>;
   }
 

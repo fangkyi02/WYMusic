@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Text,
@@ -18,7 +18,7 @@ const {width,height} = Dimensions.get('window');
 import Play from 'react-native-vector-icons/MaterialIcons';
 import FootMenu from 'react-native-vector-icons/Ionicons';
 
-export default class FootPlay extends Component {
+export default class FootPlay extends PureComponent {
 
   constructor(props){
     super(props);

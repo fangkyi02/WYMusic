@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Text,
@@ -8,7 +8,7 @@ import {
   Button
 } from 'react-native';
 
-export default class Radio extends Component {
+export default class Radio extends PureComponent {
 
   static navigationOptions = {
       tabBar: {
@@ -17,7 +17,6 @@ export default class Radio extends Component {
     }
 
   render() {
-    console.warn('主播电台');
     return (
       <View styel={{flex:1,}}>
         <Button

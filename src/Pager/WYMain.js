@@ -30,7 +30,7 @@ import { TabNavigator,DrawerNavigator} from 'react-navigation';
 
 
 const {width,height} = Dimensions.get('window');
-height = height - 120
+height = height - 120;
 
 class WYMain extends React.PureComponent {
 
@@ -42,9 +42,6 @@ class WYMain extends React.PureComponent {
       view1:true,
       view2:false,
       songData:[]
-    };
-    this.data = {
-      serachView : '',
     };
 
     this.getSongData();
@@ -61,7 +58,7 @@ class WYMain extends React.PureComponent {
   }
 
   getSongData = async() =>{
-    console.warn('歌曲输出');
+
     await fetch('http://t.cn/RXqrM6p')
     .then((re)=>re.json())
     .then((r)=>{
@@ -69,7 +66,7 @@ class WYMain extends React.PureComponent {
         this.setState({songData:r.song_list},()=>{
           setTimeout(()=>{
             SplashScreen.hide();
-          },200);
+          },1000);
         });
 
       }
@@ -152,8 +149,7 @@ class WYMain extends React.PureComponent {
   }
   // 播放器按钮被按下
   _onPlayDown = (i) =>{
-    console.warn(i);
-    this.props.navigation.navigate('播放器页面',{songData:i});
+    this.props.navigation.navigate('播放器页面',{songData:this.state.songData,songPos:i});
   }
 
   render() {

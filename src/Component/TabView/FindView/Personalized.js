@@ -1,13 +1,13 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Text,
   StyleSheet,
 } from 'react-native';
 
-export default class Personalized extends Component {
+export default class Personalized extends PureComponent {
   static navigationOptions = {
       tabBar: {
         label: '个性推荐',

@@ -1,13 +1,13 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Text,
   StyleSheet,
 } from 'react-native';
 
-export default class VideoPlayView extends Component {
+export default class VideoPlayView extends PureComponent {
   render() {
     return (
       <View style={styles.container}>

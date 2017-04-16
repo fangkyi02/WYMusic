@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Text,
@@ -9,7 +9,7 @@ import {
 
 import ListVideo from '../WYMain/ListVideo';
 
-export default class DynamicView extends Component {
+export default class DynamicView extends PureComponent {
   render() {
     return (
       <View style={styles.container}>

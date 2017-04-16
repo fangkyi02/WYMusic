@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Text,
@@ -13,7 +13,7 @@ import {
 const {width,height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/Entypo';
 
-export default class LeftMenu extends Component {
+export default class LeftMenu extends PureComponent {
 
   constructor(props){
     super(props);
